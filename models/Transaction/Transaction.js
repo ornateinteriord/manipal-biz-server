@@ -51,7 +51,7 @@ const TransactionSchema = new mongoose.Schema(
       original_loan_transaction_id: { type: String }
     },
 
-    // Payment details from Cashfree webhook
+    // Payment details from webhook
     payment_details: {
       payment_method: { type: String },
       bank_reference: { type: String },

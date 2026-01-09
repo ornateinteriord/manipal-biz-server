@@ -9,11 +9,9 @@ require("./models/db"); // Your Mongo DB connection file
 const AuthRoutes = require("./routes/AuthRoutes");
 const UserRoutes = require("./routes/UserRoutes");
 const AdminRoutes = require("./routes/AdminRoute");
-const PaymentRoutes = require("./routes/PaymentRoutes");
 const KYCRoutes = require("./routes/KYCRoutes");
 
-// 🔐 CASHFREE WEBHOOK CONTROLLER
-const { handleWebhook } = require("./controllers/Payments/CashfreeController");
+
 
 const app = express();
 
@@ -49,10 +47,7 @@ app.use(
 
 app.options("*", cors());
 
-// ======================================================
-// ⚠️ IMPORTANT: RAW BODY FOR CASHFREE WEBHOOK
-// ======================================================
-app.use("/webhook/cashfree", express.raw({ type: "*/*" }));
+
 
 // ======================================================
 //        📦 BODY PARSER (normal APIs)
@@ -60,10 +55,7 @@ app.use("/webhook/cashfree", express.raw({ type: "*/*" }));
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
-// ======================================================
-// 💳 CASHFREE WEBHOOK ROUTE (must come AFTER raw body)
-// ======================================================
-app.post("/webhook/cashfree", handleWebhook);
+
 
 // ======================================================
 //    📷 ImageKit Configuration (Optional but Secure)
@@ -98,7 +90,6 @@ app.get("/image-kit-auth", (_req, res) => {
 app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
 app.use("/admin", AdminRoutes);
-app.use("/payments", PaymentRoutes);
 app.use("/kyc", KYCRoutes);
 
 // ======================================================

@@ -12,7 +12,7 @@ const PaymentSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: [
-        // Cashfree order_status values
+        // Payment status values
         "ACTIVE",
         "PAID",
         "EXPIRED",
@@ -45,7 +45,7 @@ const PaymentSchema = new mongoose.Schema(
     webhookReceived: { type: Boolean, default: false },
     webhookReceivedAt: { type: Date },
 
-    // Payment method details from Cashfree
+    // Payment method details
     paymentMethod: { type: String },
     bankReference: { type: String },
 

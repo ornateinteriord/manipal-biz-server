@@ -30,9 +30,10 @@ app.use(
       if (!origin) return callback(null, true); // Postman / server-to-server
 
       const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
-      const isNgrok = origin.endsWith("ngrok-free.dev");
+      const isNgrok = origin && origin.endsWith("ngrok-free.dev");
+      const isVercel = origin && origin.endsWith(".vercel.app");
 
-      if (isLocalhost || isNgrok || allowedOrigins.includes(origin)) {
+      if (isLocalhost || isNgrok || isVercel || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
